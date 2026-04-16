@@ -5,8 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,11 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.employee.project.dto.PageResponse;
 import com.employee.project.exception.ResourceNotFoundException;
 import com.employee.project.model.Employee;
 import com.employee.project.repository.EmployeeRepository;
 
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/v1")
 public class EmployeeController {
@@ -31,9 +34,16 @@ public class EmployeeController {
 	
 	//get all employees
 	@GetMapping("/employees")
-	public List<Employee> getAllEmployees(){
-		return employeeRepository.findAll();
-	}
+	public PageResponse<Employee> getAllEmployees(
+			@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "5") int size) {
+
+				Pageable pageable = PageRequest.of(page, size, Sort.by("firstName").ascending());
+				Page<Employee> result  = employeeRepository.findAll(pageable);
+				return new PageResponse<>(result.getContent(), result.getNumber(), result.getTotalPages(), result.getTotalElements(), result.getSize());
+	
+			}
+
 
 	//search employees rest api
 	@GetMapping("/employees/search")
