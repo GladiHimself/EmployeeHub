@@ -1,4 +1,17 @@
 <h2>Employee List</h2>
+
+<!-- Search Bar -->
+<div style="margin-bottom: 16px;">
+  <input
+    type="text"
+    [(ngModel)]="searchKeyword"
+    (input)="onSearch()"
+    placeholder="Search by name or email..."
+    class="form-control"
+    style="width: 300px;"
+  />
+</div>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -18,14 +31,19 @@
           Update
         </button>
 
-        <button class="btn btn-danger" (click)="deleteEmployee(employee.id)" style ="margin-left:10px;">
+        <button class="btn btn-danger" (click)="deleteEmployee(employee.id)" style="margin-left:10px;">
           Delete
         </button>
 
-        <button class="btn btn-dark" (click)="employeeDetails(employee.id)" style ="margin-left:10px;">
+        <button class="btn btn-dark" (click)="employeeDetails(employee.id)" style="margin-left:10px;">
           View
         </button>
       </td>
     </tr>
   </tbody>
 </table>
+
+<!-- No results message -->
+<div *ngIf="employees.length === 0" style="margin-top: 16px; color: gray;">
+  No employees found.
+</div>
