@@ -3,6 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Employee } from './employee';
 
+export interface PageResponse {
+  content: Employee[];
+  currentPage: number;
+  totalPages: number;
+  totalElements: number;
+  pageSize: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,8 +20,8 @@ export class EmployeeService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getEmployeeList(): Observable<Employee[]> {
-    return this.httpClient.get<Employee[]>(`${this.baseUrl}`);
+  getEmployeeList(page: number = 0, size: number = 5): Observable<PageResponse> {
+    return this.httpClient.get<PageResponse>(`${this.baseUrl}?page=${page}&size=${size}`);
   }
 
   searchEmployees(keyword: string): Observable<Employee[]> {

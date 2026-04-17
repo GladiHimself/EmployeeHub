@@ -47,3 +47,24 @@
 <div *ngIf="employees.length === 0" style="margin-top: 16px; color: gray;">
   No employees found.
 </div>
+
+<!-- Pagination Controls -->
+<div *ngIf="totalPages > 1" style="margin-top: 16px; display: flex; align-items: center; gap: 16px;">
+  <button
+    class="btn btn-secondary"
+    (click)="previousPage()"
+    [disabled]="currentPage === 0">
+    Previous
+  </button>
+
+  <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+
+  <button
+    class="btn btn-secondary"
+    (click)="nextPage()"
+    [disabled]="currentPage === totalPages - 1">
+    Next
+  </button>
+
+  <span style="color: gray;">Total: {{ totalElements }} employees</span>
+</div>
