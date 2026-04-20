@@ -1,0 +1,23 @@
+<h2>Create Department</h2>
+
+<div class="col-md-6 offset-md-3">
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" class="form-control"
+      [(ngModel)]="department.name"
+      placeholder="Department name" />
+  </div>
+
+  <div class="form-group" style="margin-top: 12px;">
+    <label>Description</label>
+    <input type="text" class="form-control"
+      [(ngModel)]="department.description"
+      placeholder="Department description" />
+  </div>
+
+  <div style="margin-top: 16px;">
+    <button class="btn btn-success" (click)="saveDepartment()">Save</button>
+    <button class="btn btn-secondary" (click)="cancel()"
+      style="margin-left: 10px;">Cancel</button>
+  </div>
+</div>

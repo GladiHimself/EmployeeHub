@@ -6,6 +6,9 @@ import { UpdateEmployeeComponent } from './update-employee/update-employee.compo
 import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
+import { DepartmentListComponent } from './department-list/department-list.component';
+import { CreateDepartmentComponent } from './create-department/create-department.component';
+import { UpdateDepartmentComponent } from './update-department/update-department.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -13,6 +16,9 @@ const routes: Routes = [
   { path: 'create-employee', component: CreateEmployeeComponent, canActivate: [AuthGuard] },
   { path: 'update-employee/:id', component: UpdateEmployeeComponent, canActivate: [AuthGuard] },
   { path: 'employee-details/:id', component: EmployeeDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'departments', component: DepartmentListComponent, canActivate: [AuthGuard] },
+  { path: 'create-department', component: CreateDepartmentComponent, canActivate: [AuthGuard] },
+  { path: 'update-department/:id', component: UpdateDepartmentComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 ];
 

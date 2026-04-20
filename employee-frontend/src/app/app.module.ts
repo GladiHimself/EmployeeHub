@@ -10,6 +10,9 @@ import { UpdateEmployeeComponent } from './update-employee/update-employee.compo
 import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
 import { LoginComponent } from './login/login.component';
 import { AuthInterceptor } from './auth.interceptor';
+import { DepartmentListComponent } from './department-list/department-list.component';
+import { CreateDepartmentComponent } from './create-department/create-department.component';
+import { UpdateDepartmentComponent } from './update-department/update-department.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { AuthInterceptor } from './auth.interceptor';
     CreateEmployeeComponent,
     UpdateEmployeeComponent,
     EmployeeDetailsComponent,
-    LoginComponent
+    LoginComponent,
+    DepartmentListComponent,
+    CreateDepartmentComponent,
+    UpdateDepartmentComponent
   ],
   imports: [
     BrowserModule,
