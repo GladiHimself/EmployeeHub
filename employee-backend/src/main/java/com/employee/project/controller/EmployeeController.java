@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.employee.project.dto.PageResponse;
 import com.employee.project.exception.ResourceNotFoundException;
 import com.employee.project.model.Employee;
+import com.employee.project.repository.DepartmentRepository;
 import com.employee.project.repository.EmployeeRepository;
 
 @RestController
@@ -31,6 +32,9 @@ public class EmployeeController {
 	
 	@Autowired
 	private EmployeeRepository employeeRepository;
+
+	@Autowired
+	private DepartmentRepository departmentRepository;
 	
 	//get all employees
 	@GetMapping("/employees")
@@ -54,6 +58,10 @@ public class EmployeeController {
 	//create employee rest api
 	@PostMapping("/employees")
 	public Employee createEmployee(@RequestBody Employee employee) {
+		if (employee.getDepartment() != null && employee.getDepartment().getId() != 0) {
+			departmentRepository.findById(employee.getDepartment().getId())
+				.ifPresent(employee::setDepartment);
+		}
 		return employeeRepository.save(employee);
 	}
 	
@@ -76,6 +84,13 @@ public class EmployeeController {
 		employee.setFirstName(employeeDetails.getFirstName());
 		employee.setLastName(employeeDetails.getLastName());
 		employee.setEmailId(employeeDetails.getEmailId());
+
+		if(employeeDetails.getDepartment() != null && employeeDetails.getDepartment().getId() != 0) {
+			departmentRepository.findById(employeeDetails.getDepartment().getId())
+				.ifPresent(employee::setDepartment);
+		} else {
+			employee.setDepartment(null);
+		}
 		
 		Employee updatedEmployee = employeeRepository.save(employee);
 		return ResponseEntity.ok(updatedEmployee);

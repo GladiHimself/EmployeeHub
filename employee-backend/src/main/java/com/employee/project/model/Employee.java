@@ -1,10 +1,15 @@
 package com.employee.project.model;
 
+import org.hibernate.annotations.ManyToAny;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,6 +28,10 @@ public class Employee {
 	
 	@Column(name = "email_id")
 	private String emailId;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "department_id")
+	private Department department;
 	
 	public Employee() {
 		
@@ -57,6 +66,13 @@ public class Employee {
 	}
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 	
 	
