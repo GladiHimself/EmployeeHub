@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Employee } from '../employee';
 import { EmployeeService } from '../employee.service';
 import { Router } from '@angular/router';
+import { DepartmentService } from '../department.service';
+import { Department } from '../department';
 
 @Component({
   selector: 'app-create-employee',
@@ -11,11 +13,16 @@ import { Router } from '@angular/router';
 export class CreateEmployeeComponent implements OnInit{
 
   employee: Employee = new Employee();
+  departments: Department[] = [];
 
   constructor(private employeeService: EmployeeService,
+  private departmentService: DepartmentService,
   private router: Router) { }
 
   ngOnInit(): void {
+    this.departmentService.getDepartmentList().subscribe(data => {
+      this.departments = data;
+    });
       
   }
 
