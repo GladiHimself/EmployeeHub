@@ -48,7 +48,10 @@ public class AuthController {
         cookie.setMaxAge(24 * 60 * 60); // 1 day
         response.addCookie(cookie);
 
-        return ResponseEntity.ok(Map.of("message", "Login successful"));
+        // Get user role to return in response
+        String role = authService.getUserRole(username);
+
+        return ResponseEntity.ok(Map.of("message", "Login successful", "role", role));
 
     }
 

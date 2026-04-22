@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Employee } from '../employee';
 import { EmployeeService } from '../employee.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'employee-list',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class EmployeeListComponent implements OnInit {
 
-  employees: Employee[];
+  employees: Employee[] = [];
   searchKeyword: string = '';
 
   currentPage: number = 0;
@@ -18,11 +19,15 @@ export class EmployeeListComponent implements OnInit {
   totalElements: number = 0;
   pageSize: number = 5;
 
-  constructor(private employeeService: EmployeeService,
+  constructor(private employeeService: EmployeeService, private authService: AuthService,
     private router: Router) { }
 
   ngOnInit(): void {
     this.getEmployees();
+  }
+
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
   }
 
   private getEmployees() {
@@ -65,10 +70,19 @@ export class EmployeeListComponent implements OnInit {
   }
 
   updateEmployee(id: number) {
+    if(!this.authService.isAdmin()) {
+      alert('Only admin can perform this action.');
+      return;
+    }
     this.router.navigate(['update-employee', id]);
   }
 
   deleteEmployee(id: number) {
+    if(!this.authService.isAdmin()) {
+      alert('Only admin can perform this action.');
+      return;
+    }
+
     this.employeeService.deleteEmployee(id).subscribe(data => {
       console.log(data);
       this.getEmployees();

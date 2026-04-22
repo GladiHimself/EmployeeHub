@@ -39,4 +39,9 @@ public class AuthService {
         return jwtUtil.generateToken(user);
     }
 
+    public String getUserRole(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
+        return user.getRole().name();
+    }
+
 }

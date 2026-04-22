@@ -1,7 +1,11 @@
 <h2>Department List</h2>
 
-<button class="btn btn-primary" style="margin-bottom: 16px;"
-  routerLink="/create-department">
+<button
+  class="btn btn-primary"
+  style="margin-bottom: 16px"
+  routerLink="/create-department"
+  *ngIf="isAdmin()"
+>
   Add Department
 </button>
 
@@ -18,13 +22,24 @@
       <td>{{ department.name }}</td>
       <td>{{ department.description }}</td>
       <td>
-        <button class="btn btn-info"
-          (click)="updateDepartment(department.id)">
+        <button
+          class="btn btn-info"
+          (click)="updateDepartment(department.id)"
+          [disabled]="!isAdmin()"
+          [style.opacity]="isAdmin() ? '1' : '0.5'"
+          [title]="isAdmin() ? '' : 'Only ADMIN can perform this action'"
+        >
           Update
         </button>
-        <button class="btn btn-danger"
+
+        <button
+          class="btn btn-danger"
           (click)="deleteDepartment(department.id)"
-          style="margin-left: 10px;">
+          [disabled]="!isAdmin()"
+          [style.opacity]="isAdmin() ? '1' : '0.5'"
+          [title]="isAdmin() ? '' : 'Only ADMIN can perform this action'"
+          style="margin-left: 10px"
+        >
           Delete
         </button>
       </td>
@@ -32,6 +47,6 @@
   </tbody>
 </table>
 
-<div *ngIf="departments.length === 0" style="color: gray;">
+<div *ngIf="departments.length === 0" style="color: gray">
   No departments found.
 </div>

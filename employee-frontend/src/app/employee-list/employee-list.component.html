@@ -18,7 +18,7 @@
       <th> First Name </th>
       <th> Last Name </th>
       <th> Email Id </th>
-      <th>Department</th>
+      <th> Department </th>
       <th> Actions </th>
     </tr>
   </thead>
@@ -29,15 +29,27 @@
       <td>{{ employee.emailId }}</td>
       <td>{{ employee.department?.name || 'Not Assigned' }}</td>
       <td>
-        <button class="btn btn-info" (click)="updateEmployee(employee.id)">
+        <button
+          class="btn btn-info"
+          (click)="updateEmployee(employee.id)"
+          [disabled]="!isAdmin()"
+          [style.opacity]="isAdmin() ? '1' : '0.5'"
+          [title]="isAdmin() ? '' : 'Only ADMIN can perform this action'">
           Update
         </button>
 
-        <button class="btn btn-danger" (click)="deleteEmployee(employee.id)" style="margin-left:10px;">
+        <button
+          class="btn btn-danger"
+          (click)="deleteEmployee(employee.id)"
+          [disabled]="!isAdmin()"
+          [style.opacity]="isAdmin() ? '1' : '0.5'"
+          [title]="isAdmin() ? '' : 'Only ADMIN can perform this action'"
+          style="margin-left:10px;">
           Delete
         </button>
 
-        <button class="btn btn-dark" (click)="employeeDetails(employee.id)" style="margin-left:10px;">
+        <button class="btn btn-dark" (click)="employeeDetails(employee.id)"
+          style="margin-left:10px;">
           View
         </button>
       </td>
