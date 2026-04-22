@@ -1,43 +1,92 @@
-.login-container {
-  max-width: 400px;
-  margin: 100px auto;
-  padding: 2rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f2f5;
+}
+
+.login-card {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.login-logo {
   text-align: center;
+  margin-bottom: 28px;
+}
+
+.login-logo h2 {
+  color: #1a1a2e;
+  font-weight: 700;
+  font-size: 1.8rem;
+  margin-bottom: 4px;
+}
+
+.login-logo p {
+  color: #888;
+  font-size: 0.9rem;
+  margin: 0;
 }
 
 .form-group {
-  margin-bottom: 1rem;
-  text-align: left;
+  margin-bottom: 20px;
 }
 
-label {
+.form-group label {
   display: block;
-  margin-bottom: 0.3rem;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #555;
+  margin-bottom: 6px;
 }
 
-input {
+.form-group input {
   width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
   box-sizing: border-box;
 }
 
-button {
+.form-group input:focus {
+  outline: none;
+  border-color: #1a1a2e;
+  box-shadow: 0 0 0 3px rgba(26, 26, 46, 0.1);
+}
+
+.login-btn {
   width: 100%;
-  padding: 0.7rem;
-  background-color: #007bff;
+  padding: 12px;
+  background-color: #1a1a2e;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  margin-top: 1rem;
+  margin-top: 8px;
+  transition: all 0.2s ease;
+}
+
+.login-btn:hover {
+  background-color: #16213e;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(26, 26, 46, 0.3);
 }
 
 .error-message {
-  color: red;
-  margin-bottom: 1rem;
+  background-color: #fff0f0;
+  color: #e74c3c;
+  border: 1px solid #fcc;
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  font-size: 0.875rem;
 }

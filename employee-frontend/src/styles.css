@@ -1,13 +1,129 @@
-/* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.min.css";
 
-.footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 70px;
-    background-color: blue;
-    text-align: center;
-    color: white;
-    padding-top: 20px;
+/* ── Global Reset ── */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+  margin: 0;
+}
+
+/* ── Buttons ── */
+.btn {
+  border-radius: 6px;
+  font-size: 0.875rem;
+  padding: 6px 16px;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.btn-primary {
+  background-color: #1a1a2e;
+  border-color: #1a1a2e;
+}
+
+.btn-primary:hover {
+  background-color: #16213e;
+  border-color: #16213e;
+}
+
+.btn-success {
+  background-color: #2ecc71;
+  border-color: #2ecc71;
+}
+
+.btn-success:hover {
+  background-color: #27ae60;
+  border-color: #27ae60;
+}
+
+/* ── Tables ── */
+.table {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.table thead tr {
+  background-color: #1a1a2e;
+  color: white;
+}
+
+.table thead th {
+  font-weight: 500;
+  border: none;
+  padding: 14px 16px;
+}
+
+.table tbody td {
+  padding: 12px 16px;
+  vertical-align: middle;
+  border-color: #f0f2f5;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f8f9ff;
+}
+
+.table tbody tr:hover {
+  background-color: #eef0ff;
+  transition: background-color 0.2s ease;
+}
+
+/* ── Forms ── */
+.form-control {
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus {
+  border-color: #1a1a2e;
+  box-shadow: 0 0 0 3px rgba(26, 26, 46, 0.1);
+}
+
+.form-group label {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+/* ── Cards ── */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.card-header {
+  background-color: #1a1a2e;
+  color: white;
+  border-radius: 12px 12px 0 0 !important;
+  padding: 16px 24px;
+  font-weight: 600;
+}
+
+/* ── Page Titles ── */
+h2, h3 {
+  color: #1a1a2e;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* ── Navbar active link ── */
+.nav-link.active {
+  font-weight: 600;
+  border-bottom: 2px solid white;
 }
