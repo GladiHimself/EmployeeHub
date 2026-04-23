@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.employee.project.model.User;
 import com.employee.project.service.AuthService;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
@@ -26,49 +25,35 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody Map <String, String> request) {
+    public ResponseEntity<?> register(@RequestBody Map<String, String> request) {
         String username = request.get("username");
         String password = request.get("password");
         String role = request.getOrDefault("role", "VIEWER");
 
         User user = authService.register(username, password, User.Role.valueOf(role));
-        return ResponseEntity.ok(Map.of("message", "User registered successfully", "username", user.getUsername(), "role", user.getRole()));
+        return ResponseEntity.ok(Map.of("message", "User registered successfully",
+                "username", user.getUsername(), "role", user.getRole()));
     }
 
     @PostMapping("/login")
-public ResponseEntity<?> login(@RequestBody Map<String, String> request, HttpServletResponse response) {
-    String username = request.get("username");
-    String password = request.get("password");
+    public ResponseEntity<?> login(@RequestBody Map<String, String> request, HttpServletResponse response) {
+        String username = request.get("username");
+        String password = request.get("password");
 
-    String token = authService.login(username, password);
+        String token = authService.login(username, password);
 
-    Cookie cookie = new Cookie("jwt", token);
-    cookie.setHttpOnly(true);
-    cookie.setPath("/");
-    cookie.setMaxAge(24 * 60 * 60);
+        // SameSite=None required for cross-domain cookies in production
+        response.addHeader("Set-Cookie",
+            "jwt=" + token + "; HttpOnly; Secure; SameSite=None; Path=/; Max-Age=86400");
 
-    // Add Secure flag in production (HTTPS)
-    String environment = System.getenv("ENVIRONMENT");
-    if ("production".equals(environment)) {
-        cookie.setSecure(true);
+        String role = authService.getUserRole(username);
+        return ResponseEntity.ok(Map.of("message", "Login successful", "role", role));
     }
-
-    response.addCookie(cookie);
-
-    String role = authService.getUserRole(username);
-    return ResponseEntity.ok(Map.of("message", "Login successful", "role", role));
-}
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletResponse response) {
-        Cookie cookie = new Cookie("jwt", "");
-        cookie.setHttpOnly(true);
-        cookie.setPath("/");
-        cookie.setMaxAge(0); // Expire immediately
-        response.addCookie(cookie);
-
+        response.addHeader("Set-Cookie",
+            "jwt=; HttpOnly; Secure; SameSite=None; Path=/; Max-Age=0");
         return ResponseEntity.ok(Map.of("message", "Logout successful"));
     }
-    
-
 }
