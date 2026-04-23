@@ -36,24 +36,28 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Map <String, String> request, HttpServletResponse response) {
-        String username = request.get("username");
-        String password = request.get("password");
+public ResponseEntity<?> login(@RequestBody Map<String, String> request, HttpServletResponse response) {
+    String username = request.get("username");
+    String password = request.get("password");
 
-        String token = authService.login(username, password);
+    String token = authService.login(username, password);
 
-        Cookie cookie = new Cookie("jwt", token);
-        cookie.setHttpOnly(true);
-        cookie.setPath("/");
-        cookie.setMaxAge(24 * 60 * 60); // 1 day
-        response.addCookie(cookie);
+    Cookie cookie = new Cookie("jwt", token);
+    cookie.setHttpOnly(true);
+    cookie.setPath("/");
+    cookie.setMaxAge(24 * 60 * 60);
 
-        // Get user role to return in response
-        String role = authService.getUserRole(username);
-
-        return ResponseEntity.ok(Map.of("message", "Login successful", "role", role));
-
+    // Add Secure flag in production (HTTPS)
+    String environment = System.getenv("ENVIRONMENT");
+    if ("production".equals(environment)) {
+        cookie.setSecure(true);
     }
+
+    response.addCookie(cookie);
+
+    String role = authService.getUserRole(username);
+    return ResponseEntity.ok(Map.of("message", "Login successful", "role", role));
+}
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletResponse response) {

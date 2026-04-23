@@ -11,7 +11,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import com.employee.project.security.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -28,8 +27,15 @@ public class SecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(request -> {
                     var config = new org.springframework.web.cors.CorsConfiguration();
-                    config.setAllowedOrigins(
-                            java.util.List.of("http://localhost", "http://localhost:80", "http://localhost:4200"));
+
+                    String allowedOrigins = System.getenv("ALLOWED_ORIGINS");
+                    if (allowedOrigins != null && !allowedOrigins.isEmpty()) {
+                        config.setAllowedOrigins(java.util.List.of(allowedOrigins.split(",")));
+                    } else {
+                        config.setAllowedOrigins(
+                                java.util.List.of("http://localhost", "http://localhost:80", "http://localhost:4200"));
+                    }
+
                     config.setAllowedMethods(java.util.List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                     config.setAllowedHeaders(java.util.List.of("*"));
                     config.setAllowCredentials(true);
