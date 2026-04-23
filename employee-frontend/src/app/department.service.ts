@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 })
 export class DepartmentService {
 
-    private baseUrl = 'http://localhost:8080/api/v1/departments';
+    private baseUrl = 'https://employeehub-production.up.railway.app/api/v1/departments';
 
     constructor(private http: HttpClient) { }
 

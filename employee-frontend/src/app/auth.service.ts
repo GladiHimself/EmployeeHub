@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  private baseUrl = 'http://localhost:8080/api/auth';
+  private baseUrl = 'https://employeehub-production.up.railway.app/api/auth';
   private loggedIn = false;
   private role: string = '';
 

@@ -16,7 +16,7 @@ export interface PageResponse {
 })
 export class EmployeeService {
 
-  private baseUrl = "http://localhost:8080/api/v1/employees";
+  private baseUrl = "https://employeehub-production.up.railway.app/api/v1/employees";
 
   constructor(private httpClient: HttpClient) { }
 
