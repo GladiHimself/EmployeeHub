@@ -37,32 +37,15 @@ jobs:
         run: mvn test
         continue-on-error: true
 
-  deploy-backend:
-    name: Deploy Backend to Railway
+  notify-deployments:
+    name: Deployment Status
     runs-on: ubuntu-latest
     needs: build-and-test
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Railway deploys automatically
+        run: echo "Railway auto-deploys backend on push to main ✅"
 
-      - name: Install Railway CLI
-        run: npm install -g @railway/cli
-
-      - name: Deploy to Railway
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: |
-          cd employee-backend
-          railway up --service EmployeeHub
-
-  deploy-frontend:
-    name: Deploy Frontend (Vercel handles automatically)
-    runs-on: ubuntu-latest
-    needs: build-and-test
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-
-    steps:
       - name: Vercel deploys automatically
-        run: echo "Vercel auto-deploys on push to main ✅"
+        run: echo "Vercel auto-deploys frontend on push to main ✅"
